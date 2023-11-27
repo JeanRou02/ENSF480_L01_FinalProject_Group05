@@ -4,16 +4,17 @@ USE AIRLINE;
 
 DROP TABLE IF EXISTS AIRCRAFTS;
 CREATE TABLE AIRCRAFTS (
-    AircraftName    VARCHAR(50)  PRIMARY KEY,
+    AircraftID  INT     PRIMARY KEY     AUTO_INCREMENT,
+    AircraftName    VARCHAR(50),
     NumberOfRegularSeats    INT  NOT     NULL,
     NumberOfBusinessSeats   INT     NOT  NULL
 );
 
-INSERT INTO AIRCRAFTS (AircraftName, NumberofRegularSeats, NumberOfBusinessSeats) VALUES
-('Boeing 777-300ER', 4, 2),
-('Boeing 787-9', 8, 2),
-('Boeing 737 MAX 8', 6, 2),
-('Boeing 787-8', 8, 4);
+INSERT INTO AIRCRAFTS (AircraftID, AircraftName, NumberofRegularSeats, NumberOfBusinessSeats) VALUES
+(1, 'Boeing 777-300ER', 138, 36),
+(2, 'Boeing 787-9', 138, 36),
+(3, 'Boeing 737 MAX 8', 138, 36),
+(4, 'Boeing 787-8', 138, 36);
 
 DROP TABLE IF EXISTS FLIGHTS;
 CREATE TABLE FLIGHTS (
@@ -64,53 +65,97 @@ INSERT INTO FLIGHTCREWS (FlightNumber, CrewID) VALUES
 
 DROP TABLE IF EXISTS SEATS;
 CREATE TABLE SEATS (
-    SeatID  INT  PRIMARY     KEY     AUTO_INCREMENT,
-    SeatNumber  VARCHAR(5),
-    Aircraft    VARCHAR(50),  -- Foreign key to Aircraft table
+    SeatNumber  VARCHAR(5)  PRIMARY KEY,
+    User    VARCHAR(50),
     SeatClass   VARCHAR(20)     NOT NULL,  -- e.g., Regular, Business-Class
-    FOREIGN KEY (Aircraft)   REFERENCES     AIRCRAFTS(AircraftName)
+    FOREIGN KEY (User)   REFERENCES     USERS(Username)
 );
 
-INSERT INTO SEATS (SeatID, SeatNumber, Aircraft, SeatClass) VALUES
-(1, '1A', 'Boeing 777-300ER', 'Business'),
-(2, '1B', 'Boeing 777-300ER', 'Business'),
-(3, '2A', 'Boeing 777-300ER', 'Regular'),
-(4, '2B', 'Boeing 777-300ER', 'Regular'),
-(5, '3A', 'Boeing 777-300ER', 'Regular'),
-(6, '3B', 'Boeing 777-300ER', 'Regular'),
--- Repeat similar entries for other aircraft models
-(7, '1A', 'Boeing 787-9', 'Business'),
-(8, '1B', 'Boeing 787-9', 'Business'),
-(9, '2A', 'Boeing 787-9', 'Regular'),
-(10, '2B', 'Boeing 787-9', 'Regular'),
-(11, '3A', 'Boeing 787-9', 'Regular'),
-(12, '3B', 'Boeing 787-9', 'Regular'),
-(13, '4A', 'Boeing 787-9', 'Regular'),
-(14, '4B', 'Boeing 787-9', 'Regular'),
-(15, '5A', 'Boeing 787-9', 'Regular'),
-(16, '5B', 'Boeing 787-9', 'Regular'),
--- Repeat similar entries for other aircraft models
-(17, '1A', 'Boeing 737 MAX 8', 'Business'),
-(18, '1B', 'Boeing 737 MAX 8', 'Business'),
-(19, '2A', 'Boeing 737 MAX 8', 'Regular'),
-(20, '2B', 'Boeing 737 MAX 8', 'Regular'),
-(21, '3A', 'Boeing 737 MAX 8', 'Regular'),
-(22, '3B', 'Boeing 737 MAX 8', 'Regular'),
-(23, '4A', 'Boeing 737 MAX 8', 'Regular'),
-(24, '4B', 'Boeing 737 MAX 8', 'Regular'),
--- Repeat similar entries for other aircraft models
-(25, '1A', 'Boeing 787-8', 'Business'),
-(26, '1B', 'Boeing 787-8', 'Business'),
-(27, '2A', 'Boeing 787-8', 'Business'),
-(28, '2B', 'Boeing 787-8', 'Business'),
-(29, '3A', 'Boeing 787-8', 'Regular'),
-(30, '3B', 'Boeing 787-8', 'Regular'),
-(31, '4A', 'Boeing 787-8', 'Regular'),
-(32, '4B', 'Boeing 787-8', 'Regular'),
-(33, '5A', 'Boeing 787-8', 'Regular'),
-(34, '5B', 'Boeing 787-8', 'Regular'),
-(35, '6A', 'Boeing 787-8', 'Regular'),
-(36, '6B', 'Boeing 787-8', 'Regular');
+INSERT INTO SEATS (SeatNumber, User, SeatClass) VALUES
+('1A', NULL, 'Business'),
+('1B', NULL, 'Business'),
+('1C', NULL, 'Business'),
+('1D', NULL, 'Business'),
+('1E', NULL, 'Business'),
+('1F', NULL, 'Business'),
+('2A', NULL, 'Business'),
+('2B', NULL, 'Business'),
+('2C', NULL, 'Business'),
+('2D', NULL, 'Business'),
+('2E', NULL, 'Business'),
+('2F', NULL, 'Business'),
+('3A', NULL, 'Business'),
+('3B', NULL, 'Business'),
+('3C', NULL, 'Business'),
+('3D', NULL, 'Business'),
+('3E', NULL, 'Business'),
+('3F', NULL, 'Business'),
+('4A', NULL, 'Business'),
+('4B', NULL, 'Business'),
+('4C', NULL, 'Business'),
+('4D', NULL, 'Business'),
+('4E', NULL, 'Business'),
+('4F', NULL, 'Business'),
+('5A', NULL, 'Regular'),
+('5B', NULL, 'Regular'),
+('5C', NULL, 'Regular'),
+('5D', NULL, 'Regular'),
+('5E', NULL, 'Regular'),
+('5F', NULL, 'Regular'),
+('6A', NULL, 'Regular'),
+('6B', NULL, 'Regular'),
+('6C', NULL, 'Regular'),
+('6D', NULL, 'Regular'),
+('6E', NULL, 'Regular'),
+('6F', NULL, 'Regular'),
+('7A', NULL, 'Regular'),
+('7B', NULL, 'Regular'),
+('7C', NULL, 'Regular'),
+('7D', NULL, 'Regular'),
+('7E', NULL, 'Regular'),
+('7F', NULL, 'Regular'),
+('8A', NULL, 'Regular'),
+('8B', NULL, 'Regular'),
+('8C', NULL, 'Regular'),
+('8D', NULL, 'Regular'),
+('8E', NULL, 'Regular'),
+('8F', NULL, 'Regular'),
+('9A', NULL, 'Regular'),
+('9B', NULL, 'Regular'),
+('9C', NULL, 'Regular'),
+('9D', NULL, 'Regular'),
+('9E', NULL, 'Regular'),
+('9F', NULL, 'Regular'),
+('10A', NULL, 'Regular'),
+('10B', NULL, 'Regular'),
+('10C', NULL, 'Regular'),
+('10D', NULL, 'Regular'),
+('10E', NULL, 'Regular'),
+('10F', NULL, 'Regular'),
+('11A', NULL, 'Regular'),
+('11B', NULL, 'Regular'),
+('11C', NULL, 'Regular'),
+('11D', NULL, 'Regular'),
+('11E', NULL, 'Regular'),
+('11F', NULL, 'Regular'),
+('12A', NULL, 'Regular'),
+('12B', NULL, 'Regular'),
+('12C', NULL, 'Regular'),
+('12D', NULL, 'Regular'),
+('12E', NULL, 'Regular'),
+('12F', NULL, 'Regular'),
+('13A', NULL, 'Regular'),
+('13B', NULL, 'Regular'),
+('13C', NULL, 'Regular'),
+('13D', NULL, 'Regular'),
+('13E', NULL, 'Regular'),
+('13F', NULL, 'Regular'),
+('14A', NULL, 'Regular'),
+('14B', NULL, 'Regular'),
+('14C', NULL, 'Regular'),
+('14D', NULL, 'Regular'),
+('14E', NULL, 'Regular'),
+('14F', NULL, 'Regular');
 
 DROP TABLE IF EXISTS USERS;
 CREATE TABLE USERS (

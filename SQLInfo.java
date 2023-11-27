@@ -10,6 +10,7 @@ import java.util.Arrays;
 public class SQLInfo {
     private static Connection dbConnect;
     private ResultSet results;
+    private static SQLInfo instance;
 
     private static ArrayList<String[]> users = new ArrayList<String[]>();
     private static ArrayList<String[]> flights = new ArrayList<String[]>();
@@ -32,8 +33,15 @@ public class SQLInfo {
     //     return SQLInfo.aircrafts_obj;
     // }
 
-    public SQLInfo() {
+    private SQLInfo() {
     
+    }
+
+    public static SQLInfo getInstance() {
+        if (instance == null) {
+            instance = new SQLInfo();
+        }
+        return instance;
     }
 
     public void close() {
@@ -125,11 +133,10 @@ public class SQLInfo {
             results = myStmt.executeQuery("SELECT * FROM SEATS");
 
             while (results.next()) {
-                String[] seatData = new String[4];
-                seatData[0] = Integer.toString(results.getInt("SeatID"));
-                seatData[1] = results.getString("SeatNumber");
-                seatData[2] = results.getString("Aircraft");
-                seatData[3] = results.getString("SeatClass");
+                String[] seatData = new String[3];
+                seatData[0] = results.getString("SeatNumber");
+                seatData[1] = results.getString("User");
+                seatData[2] = results.getString("SeatClass");
                 seats.add(seatData);
             }
 
@@ -141,7 +148,7 @@ public class SQLInfo {
     }
 
     public static void main(String[] args) {
-        SQLInfo sqlInfo = new SQLInfo();
+        SQLInfo sqlInfo = SQLInfo.getInstance();
         sqlInfo.createConnection();
         sqlInfo.selectUsers();
         sqlInfo.selectFlights();
