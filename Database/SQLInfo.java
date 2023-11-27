@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.awt.EventQueue;
 
 public class SQLInfo {
@@ -10,6 +11,7 @@ public class SQLInfo {
     private ArrayList<String[]> flights = new ArrayList<String[]>();
     private ArrayList<String[]> aircrafts = new ArrayList<String[]>();
     private ArrayList<String[]> seats = new ArrayList<String[]>();
+
     // private static User [] users_obj;
     // private static Flight [] flights_obj;
     // private static Aircraft [] aircrafts_obj;
@@ -113,6 +115,24 @@ public class SQLInfo {
         return aircrafts;
     }
 
+    public ArrayList<String[]> selectSeats() {
+        try (Statement myStmt = dbConnect.createStatement()) {
+            results = myStmt.executeQuery("SELECT * FROM SEATS");
+
+            while (results.next()) {
+                String[] seatData = new String[3];
+                seatData[0] = results.getString("SeatNumber");
+                seatData[1] = results.getString("Aircraft");
+                seatData[2] = results.getString("SeatClass");
+                seats.add(seatData);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            // Handle SQL exception gracefully
+        }
+        return seats;
+    }
 }
 
 public static void main(String[] args) {
@@ -121,6 +141,29 @@ public static void main(String[] args) {
         ArrayList<String[]> usersData = sqlInfo.selectUsers();
         ArrayList<String[]> flightsData = sqlInfo.selectFlights();
         ArrayList<String[]> aircraftsData = sqlInfo.selectAircrafts();
+        ArrayList<String[]> seatsData = sqlInfo.selectSeats();
 
-        // Process the retrieved data as needed
+        // Retrieve and print user information  
+        System.out.println("Users:");
+        for (String[] userData : usersData) {
+            System.out.println(Arrays.toString(userData));
+        }
+
+        // Retrieve and print flight information
+        System.out.println("\nFlights:");
+        for (String[] flightData : flightsData) {
+            System.out.println(Arrays.toString(flightData));
+        }
+
+        // Retrieve and print aircraft information
+        System.out.println("\nAircrafts:");
+        for (String[] aircraftData : aircraftsData) {
+            System.out.println(Arrays.toString(aircraftData));
+        }
+
+        // Retrieve and print seat information
+        System.out.println("\nSeats:");
+        for (String[] seatData : seatsData) {
+            System.out.println(Arrays.toString(seatData));
+        }
 }
