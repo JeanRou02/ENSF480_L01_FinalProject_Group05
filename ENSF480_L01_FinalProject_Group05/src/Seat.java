@@ -1,7 +1,7 @@
 public class Seat {
     private Customer customer;
     private String seatClass;
-    private int seatNumber;
+    private String seatNumber;
 
     public Customer getCustomer() {
         return customer;
@@ -9,7 +9,7 @@ public class Seat {
     public String getSeatClass() {
         return seatClass;
     }
-    public int getSeatNumber() {
+    public String getSeatNumber() {
         return seatNumber;
     }
     public void setCustomer(Customer customer) {
@@ -20,7 +20,7 @@ public class Seat {
         this.seatClass = seatClass;
     }
 
-    public void setSeatNumber(int seatNumber) {
+    public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
     }
     public boolean isAvailable() {

@@ -1,58 +1,69 @@
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 public class SeatMap {
-    // Map representing the seats and the User occupying them. null if the seat is available.
-    private Map<String, User> seats;
+    private Seat[] seats;
 
-    public SeatMap(int numberOfSeats) {
-        this.seats = new HashMap<>();
-        // Initialize the seat map with seat numbers/names. Initially, all seats are unoccupied (null).
-        for (int i = 1; i <= numberOfSeats; i++) {
-            seats.put("Seat " + i, null); // Replace with your actual seat numbering/naming scheme
-        }
+    public SeatMap() {
+        seats = new Seat[29 * 6]; // 29 rows, 6 seats per row
+        initializeSeats();
     }
 
-    // Method to check if a seat is available
-    public boolean isSeatAvailable(String seatNumber) {
-        return seats.get(seatNumber) == null;
-    }
-
-    // Method for a user to browse available seats
-    public void browseAvailableSeats() {
-        System.out.println("Available seats:");
-        seats.forEach((seatNumber, user) -> {
-            if (user == null) { // if seat is not occupied
-                System.out.println(seatNumber);
+    private void initializeSeats() {
+        int seatIndex = 0;
+        for (int row = 1; row <= 29; row++) {
+            for (char column = 'A'; column <= 'F'; column++) {
+                seats[seatIndex] = new Seat();
+                seats[seatIndex].setSeatNumber(row + String.valueOf(column));
+                if (row <= 4) {
+                    seats[seatIndex].setSeatClass("Business");
+                } else {
+                    seats[seatIndex].setSeatClass("Regular");
+                }
+                seatIndex++;
             }
-        });
-    }
-
-    // Method to assign a seat to a user
-    public boolean assignSeat(String seatNumber, User user) {
-        if (isSeatAvailable(seatNumber)) {
-            seats.put(seatNumber, user); // Assign the user to the seat
-            return true;
-        } else {
-            return false; // Seat was already occupied or doesn't exist
         }
     }
 
-    // Method for admin to clear a seat assignment
-    public void clearSeat(String seatNumber) {
-        seats.put(seatNumber, null);
+    public boolean addCustomerToSeat(String seatNumber, Customer customer) {
+        for (Seat seat : seats) {
+            if (seat.getSeatNumber().equals(seatNumber)) {
+                if (seat.isAvailable()) {
+                    seat.setCustomer(customer);
+                    return true; // Customer added successfully
+                } else {
+                    return false; // Seat is already occupied
+                }
+            }
+        }
+        return false; // Seat number not found
     }
 
-    // Method to get the User object occupying a seat
-    public User getUserForSeat(String seatNumber) {
-        return seats.get(seatNumber);
+    public Seat[] getSeats() {
+        return seats;
     }
 
-    // Method to get a read-only view of the map of seats
-    public Map<String, User> getMapOfSeats() {
-        return Collections.unmodifiableMap(seats);
+    public boolean removeCustomerFromSeat(String seatNumber) {
+        for (Seat seat : seats) {
+            if (seat.getSeatNumber().equals(seatNumber)) {
+                if (!seat.isAvailable()) {
+                    seat.setCustomer(null);
+                    return true; // Customer removed successfully
+                } else {
+                    return false; // Seat is already empty
+                }
+            }
+        }
+        return false; // Seat number not found
+    }
+
+    public boolean removeCustomer(Customer customer) {
+        for (Seat seat : seats) {
+            if (seat.getCustomer() != null && seat.getCustomer().equals(customer)) {
+                seat.setCustomer(null);
+                return true; // Customer removed successfully
+            }
+        }
+        return false; // Customer not found in any seat
     }
 }
+
 
 
