@@ -9,6 +9,7 @@ public class SQLInfo {
     private ArrayList<String[]> users = new ArrayList<String[]>();
     private ArrayList<String[]> flights = new ArrayList<String[]>();
     private ArrayList<String[]> aircrafts = new ArrayList<String[]>();
+    private ArrayList<String[]> seats = new ArrayList<String[]>();
     // private static User [] users_obj;
     // private static Flight [] flights_obj;
     // private static Aircraft [] aircrafts_obj;
@@ -27,6 +28,17 @@ public class SQLInfo {
 
     public SQLInfo() {
     
+    }
+
+    public void close() {
+        try {
+            if (results != null) {
+                results.close();
+            }
+            dbConnect.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createConnection() {
@@ -82,4 +94,33 @@ public class SQLInfo {
         return flights;
     }
 
+    public ArrayList<String[]> selectAircrafts() {
+        try {
+            Statement myStmt = dbConnect.createStatement();
+            results = myStmt.executeQuery("SELECT * FROM AIRCRAFTS");
+
+            while (results.next()) {
+                String[] aircraftData = new String[2];
+                aircraftData[0] = results.getString("AircraftName");
+                aircraftData[1] = results.getString("NumberOfSeats");
+                aircrafts.add(aircraftData);
+            }
+    
+            myStmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return aircrafts;
+    }
+
+}
+
+public static void main(String[] args) {
+        SQLInfo sqlInfo = new SQLInfo();
+        sqlInfo.createConnection();
+        ArrayList<String[]> usersData = sqlInfo.selectUsers();
+        ArrayList<String[]> flightsData = sqlInfo.selectFlights();
+        ArrayList<String[]> aircraftsData = sqlInfo.selectAircrafts();
+
+        // Process the retrieved data as needed
 }
