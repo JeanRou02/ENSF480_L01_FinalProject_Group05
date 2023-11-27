@@ -1,11 +1,13 @@
+import java.util.ArrayList;
+
 public class Customer extends User {
     private String email;
-    private Ticket[] tickets; // Assuming Ticket is a class defined elsewhere
+    private ArrayList<Ticket> tickets; // Assuming Ticket is a class defined elsewhere
     private boolean isRegistered;
     private int creditCard;
 
     // Constructor
-    public Customer(String name, String userName, String password, String dateOfBirth, String userType, String email, Ticket[] tickets, boolean isRegistered, int creditCard) {
+    public Customer(String name, String userName, String password, String dateOfBirth, String userType, String email, ArrayList<Ticket> tickets, boolean isRegistered, int creditCard) {
         super(name, userName, password, dateOfBirth, userType);
         this.email = email;
         this.tickets = tickets;
@@ -23,11 +25,11 @@ public class Customer extends User {
         this.email = email;
     }
 
-    public Ticket[] getTickets() {
+    public ArrayList<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Ticket[] tickets) {
+    public void setTickets(ArrayList<Ticket> tickets) {
         this.tickets = tickets;
     }
 
