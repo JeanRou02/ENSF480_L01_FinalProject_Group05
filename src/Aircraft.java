@@ -1,5 +1,5 @@
 public class Aircraft {
-    private String name;
+    private String name; 
     private SeatMap seatMap; // Assuming SeatMap is a class or interface defined elsewhere
 
     // Constructor
