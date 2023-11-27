@@ -5,7 +5,6 @@ USE AIRLINE;
 DROP TABLE IF EXISTS FLIGHTS;
 CREATE TABLE FLIGHTS (
     FlightNumber VARCHAR(10) PRIMARY KEY,
-    Origin VARCHAR(50) NOT NULL,
     Destination VARCHAR(50) NOT NULL,
     DepartureDateTime DATETIME NOT NULL,
     Aircraft VARCHAR(10) NOT NULL,  -- Foreign key to Aircrafts table

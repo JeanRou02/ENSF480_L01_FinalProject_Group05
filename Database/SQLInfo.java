@@ -60,4 +60,26 @@ public class SQLInfo {
         return users;
     }
 
+    public ArrayList<String[]> selectFlights() {
+        try {
+            Statement myStmt = dbConnect.createStatement();
+            results = myStmt.executeQuery("SELECT * FROM FLIGHTS");
+
+            while (results.next()) {
+                String[] flightData = new String[4];
+                flightData[0] = results.getString("FlightNumber");
+                flightData[1] = results.getString("Destination");
+                java.sql.Timestamp dateOfBirth = results.getTimestamp("DateofBirth");
+                flightData[2] = dateOfBirth.toString();
+                flightData[3] = results.getString("Aircraft");
+                flights.add(flightData);
+            }
+    
+            myStmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return flights;
+    }
+
 }
