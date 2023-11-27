@@ -1,7 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.awt.EventQueue;
 
 public class SQLInfo {
     private static Connection dbConnect;
@@ -121,10 +120,11 @@ public class SQLInfo {
             results = myStmt.executeQuery("SELECT * FROM SEATS");
 
             while (results.next()) {
-                String[] seatData = new String[3];
-                seatData[0] = results.getString("SeatNumber");
-                seatData[1] = results.getString("Aircraft");
-                seatData[2] = results.getString("SeatClass");
+                String[] seatData = new String[4];
+                seatData[0] = Integer.toString(results.getInt("SeatID"));
+                seatData[1] = results.getString("SeatNumber");
+                seatData[2] = results.getString("Aircraft");
+                seatData[3] = results.getString("SeatClass");
                 seats.add(seatData);
             }
 
