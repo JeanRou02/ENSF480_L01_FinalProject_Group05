@@ -1,6 +1,7 @@
 public class Aircraft {
     private String name;
     private SeatMap seatMap; // Assuming SeatMap is a class or interface defined elsewhere
+    private int test;
 
     // Constructor
     public Aircraft(String name, SeatMap seatMap) {
@@ -27,9 +28,6 @@ public class Aircraft {
     public void setSeatMap(SeatMap seatMap) {
         this.seatMap = seatMap;
     }
-
-
-
 }
 
 
