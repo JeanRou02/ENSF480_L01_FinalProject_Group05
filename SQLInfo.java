@@ -97,7 +97,7 @@ public class SQLInfo {
                 flightData[1] = results.getString("Destination");
                 java.sql.Timestamp dateOfBirth = results.getTimestamp("DepartureDateTime");
                 flightData[2] = dateOfBirth.toString();
-                flightData[3] = results.getString("Aircraft");
+                flightData[3] = Integer.toString(results.getInt("Aircraft"));
                 flights.add(flightData);
             }
     
@@ -114,10 +114,11 @@ public class SQLInfo {
             results = myStmt.executeQuery("SELECT * FROM AIRCRAFTS");
 
             while (results.next()) {
-                String[] aircraftData = new String[3];
-                aircraftData[0] = results.getString("AircraftName");
-                aircraftData[1] = Integer.toString(results.getInt("NumberOfRegularSeats"));
-                aircraftData[2] = Integer.toString(results.getInt("NumberOfBusinessSeats"));
+                String[] aircraftData = new String[4];
+                aircraftData[0] = Integer.toString(results.getInt("AircraftID"));
+                aircraftData[1] = results.getString("AircraftName");
+                aircraftData[2] = Integer.toString(results.getInt("NumberOfRegularSeats"));
+                aircraftData[3] = Integer.toString(results.getInt("NumberOfBusinessSeats"));
                 aircrafts.add(aircraftData);
             }
     

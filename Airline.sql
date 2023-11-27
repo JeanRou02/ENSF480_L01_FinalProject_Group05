@@ -2,6 +2,26 @@ DROP DATABASE IF EXISTS AIRLINE;
 CREATE DATABASE AIRLINE; 
 USE AIRLINE;
 
+DROP TABLE IF EXISTS USERS;
+CREATE TABLE USERS (
+    Username    VARCHAR(50)     PRIMARY KEY,
+    Password    VARCHAR(50)  NOT NULL,
+    Email   VARCHAR(100)    NOT NULL,
+    IsRegistered    BOOLEAN  NOT NULL,
+    DateOfBirth     DATE     NOT NULL,
+    UserType    VARCHAR(50)     NOT NULL
+);
+
+INSERT INTO USERS (Username, Password, Email, IsRegistered, DateOfBirth, UserType) VALUES
+('john_doe', 'password1', 'john.doe@email.com', true, '1990-05-15', 'Customer'),
+('jane_smith', 'password2', 'jane.smith@email.com', true, '1985-08-22', 'Customer'),
+('bob_jones', 'password3', 'bob.jones@email.com', false, '1978-11-10', 'Customer'),
+('sara_miller', 'password4', 'sara.miller@email.com', true, '1995-03-05', 'Customer'),
+('michael', 'password5', 'michael@theoffice.com', true, '1990-05-15', 'Crew'),
+('pam', 'password6', 'pam@theoffice.com', true, '1985-08-22', 'Crew'),
+('dwight', 'password7', 'dwight@theoffice.com', false, '1978-11-10', 'Crew'),
+('jim', 'password8', 'jim@theoffice.com', true, '1995-03-05', 'Crew');
+
 DROP TABLE IF EXISTS AIRCRAFTS;
 CREATE TABLE AIRCRAFTS (
     AircraftID  INT     PRIMARY KEY     AUTO_INCREMENT,
@@ -21,15 +41,15 @@ CREATE TABLE FLIGHTS (
     FlightNumber    VARCHAR(10)    PRIMARY KEY,
     Destination     VARCHAR(50)     NOT  NULL,
     DepartureDateTime   DATETIME  NOT NULL,
-    Aircraft VARCHAR(50)    NOT     NULL,
-    FOREIGN KEY (Aircraft)  REFERENCES   AIRCRAFTS(AircraftName)
+    Aircraft INT    NOT     NULL,
+    FOREIGN KEY (Aircraft)  REFERENCES   AIRCRAFTS(AircraftID)
 );
 
 INSERT INTO FLIGHTS (FlightNumber, Destination, DepartureDateTime, Aircraft) VALUES
-('AC100', 'Vancouver', STR_TO_DATE('2023-11-10 08:00:00', '%Y-%m-%d %H:%i:%s'), 'Boeing 777-300ER'),
-('AC200', 'Edmonton', STR_TO_DATE('2023-11-11 09:00:00', '%Y-%m-%d %H:%i:%s'), 'Boeing 787-9'),
-('AC300', 'Toronto', STR_TO_DATE('2023-11-12 10:00:00', '%Y-%m-%d %H:%i:%s'), 'Boeing 737 MAX 8'),
-('AC400', 'Saskatchewan', STR_TO_DATE('2023-11-13 11:00:00', '%Y-%m-%d %H:%i:%s'), 'Boeing 787-8');
+('AC100', 'Vancouver', STR_TO_DATE('2023-11-10 08:00:00', '%Y-%m-%d %H:%i:%s'), 1),
+('AC200', 'Edmonton', STR_TO_DATE('2023-11-11 09:00:00', '%Y-%m-%d %H:%i:%s'), 2),
+('AC300', 'Toronto', STR_TO_DATE('2023-11-12 10:00:00', '%Y-%m-%d %H:%i:%s'), 3),
+('AC400', 'Saskatchewan', STR_TO_DATE('2023-11-13 11:00:00', '%Y-%m-%d %H:%i:%s'), 4);
 
 DROP TABLE IF EXISTS CREWS;
 CREATE TABLE CREWS (
@@ -156,26 +176,6 @@ INSERT INTO SEATS (SeatNumber, User, SeatClass) VALUES
 ('14D', NULL, 'Regular'),
 ('14E', NULL, 'Regular'),
 ('14F', NULL, 'Regular');
-
-DROP TABLE IF EXISTS USERS;
-CREATE TABLE USERS (
-    Username    VARCHAR(50)     PRIMARY KEY,
-    Password    VARCHAR(50)  NOT NULL,
-    Email   VARCHAR(100)    NOT NULL,
-    IsRegistered    BOOLEAN  NOT NULL,
-    DateOfBirth     DATE     NOT NULL,
-    UserType    VARCHAR(50)     NOT NULL
-);
-
-INSERT INTO USERS (Username, Password, Email, IsRegistered, DateOfBirth, UserType) VALUES
-('john_doe', 'password1', 'john.doe@email.com', true, '1990-05-15', 'Customer'),
-('jane_smith', 'password2', 'jane.smith@email.com', true, '1985-08-22', 'Customer'),
-('bob_jones', 'password3', 'bob.jones@email.com', false, '1978-11-10', 'Customer'),
-('sara_miller', 'password4', 'sara.miller@email.com', true, '1995-03-05', 'Customer'),
-('michael', 'password5', 'michael@theoffice.com', true, '1990-05-15', 'Crew'),
-('pam', 'password6', 'pam@theoffice.com', true, '1985-08-22', 'Crew'),
-('dwight', 'password7', 'dwight@theoffice.com', false, '1978-11-10', 'Crew'),
-('jim', 'password8', 'jim@theoffice.com', true, '1995-03-05', 'Crew');
 
 -- create user to use in java code
 CREATE USER 'oop'@'localhost' IDENTIFIED BY 'password';
