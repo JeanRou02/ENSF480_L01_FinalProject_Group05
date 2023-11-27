@@ -27,6 +27,9 @@ public class Aircraft {
     public void setSeatMap(SeatMap seatMap) {
         this.seatMap = seatMap;
     }
+
+
+
 }
 
 
