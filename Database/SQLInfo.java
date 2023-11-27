@@ -102,9 +102,10 @@ public class SQLInfo {
             results = myStmt.executeQuery("SELECT * FROM AIRCRAFTS");
 
             while (results.next()) {
-                String[] aircraftData = new String[2];
+                String[] aircraftData = new String[3];
                 aircraftData[0] = results.getString("AircraftName");
-                aircraftData[1] = results.getString("NumberOfSeats");
+                aircraftData[1] = Integer.toString(results.getInt("NumberOfRegularSeats"));
+                aircraftData[2] = Integer.toString(results.getInt("NumberOfBusinessSeats"));
                 aircrafts.add(aircraftData);
             }
     
@@ -133,9 +134,8 @@ public class SQLInfo {
         }
         return seats;
     }
-}
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
         SQLInfo sqlInfo = new SQLInfo();
         sqlInfo.createConnection();
         ArrayList<String[]> usersData = sqlInfo.selectUsers();
@@ -166,4 +166,5 @@ public static void main(String[] args) {
         for (String[] seatData : seatsData) {
             System.out.println(Arrays.toString(seatData));
         }
+    }
 }
